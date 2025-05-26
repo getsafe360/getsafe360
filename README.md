@@ -1,4 +1,4 @@
-# 👋 Hi, we’re @getsafe360
+# 🚀 GetSafe360 AI Agent Suite
 
 We empower website owners and developers with AI-driven tools for real-time optimization, performance testing, and ongoing compliance with evolving SEO and accessibility standards.
 
