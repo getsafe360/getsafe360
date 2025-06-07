@@ -5,27 +5,33 @@ This script initializes and coordinates modules that analyze websites for:
 - Performance & speed
 - Security & compliance
 - SEO & AI readiness
+- Reputation & sentiment (SERP)
 - Accessibility (BFSG)
 """
 
 import sys
-from modules.performance import check_performance
-from modules.security import check_security
-from modules.seo import check_seo
-from modules.accessibility import check_accessibility
+from analyzer.modules.performance import analyze_performance
+from analyzer.modules.security import analyze_security
+from analyzer.modules.seo import SEOAnalyzer
+from analyzer.modules.serp import SERPAnalyzer
+# from analyzer.modules.accessibility import analyze_accessibility   # (if implemented)
 
-def run_full_analysis(url: str):
+def run_full_analysis(url: str) -> dict:
+    seo = SEOAnalyzer(url)
+    serp = SERPAnalyzer(url)   # or SERPAnalyzer(brand/domain name)
+
     results = {
-        "performance": check_performance(url),
-        "security": check_security(url),
-        "seo": check_seo(url),
-        "accessibility": check_accessibility(url)
+        "performance": analyze_performance(url) if 'analyze_performance' in globals() else "Not implemented",
+        "security": analyze_security(url) if 'analyze_security' in globals() else "Not implemented",
+        "seo": seo.run_all_checks(),
+        "reputation": serp.run_analysis(),
+        # "accessibility": analyze_accessibility(url) if 'analyze_accessibility' in globals() else "Not implemented"
     }
     return results
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python ai_analyzer.py <URL>")
+        print("Usage: python -m analyzer.ai_analyzer <URL>")
         sys.exit(1)
 
     url = sys.argv[1]
@@ -33,4 +39,5 @@ if __name__ == "__main__":
     output = run_full_analysis(url)
     print("\n✅ Analysis Complete:")
     for category, result in output.items():
-        print(f"- {category.title()}: {result}")
+        print(f"\n--- {category.title()} ---")
+        print(result)
