@@ -2,4 +2,23 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/analyzer/modules/usage.py
+# Python cache files
+__pycache__/
+*.pyc
+
+# VS Code project files
+.vscode/
+.vs/
+
+# OS/Editor files
+*.DS_Store
+Thumbs.db
+
+# Environment files (optional)
+.env
+.venv/
+env/
+venv/
+
+# Jupyter Notebook checkpoints (if you use them)
+.ipynb_checkpoints/
